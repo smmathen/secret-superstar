@@ -39,9 +39,9 @@ entry2.pack()
 
 
 # Get Youtube API Key from Google Developers and put in variable (USER NEEDS TO DO)
-api_key = 'AIzaSyBHTYoNhCHQlkRPO7IICt0U6aVgqOekewE'
+api_key = '[ENTER YOUR YOUTUBE API TOKEN]'
 # Get Genius API
-genius = lyricsgenius.Genius("5u2WFz0UZRo2uy0CkPWczPOeYTIqTgzbkvJAdu85YLcfTuzYXuEBFcazqEWXbuUU")
+genius = lyricsgenius.Genius("ENTER YOUR GENIUS API TOKEN")
 
 
 
