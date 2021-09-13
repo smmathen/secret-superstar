@@ -1,0 +1,8 @@
+pyaudio==0.2.11
+wave==0.0.2
+urllib==1.26.6
+youtube_dl==2021.6.6
+moviepy==1.0.3
+pydub==0.25.1
+pygame==2.0.1
+lyricsgenius==3.0.1
