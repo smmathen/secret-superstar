@@ -1,4 +1,4 @@
-# Importing relevant audio libraries
+# Importing relevant audio, GUI, and API libraries
 import pyaudio
 import wave
 import os
@@ -43,20 +43,17 @@ api_key = '[ENTER YOUR YOUTUBE API TOKEN]'
 # Get Genius API
 genius = lyricsgenius.Genius("ENTER YOUR GENIUS API TOKEN")
 
-
-
+# initializing variables used throughout program
 total_time = 0
 artist_name = ''
 song_name = ""
-# Allow user to input song they want, and adds "instrumental" to end of Youtube
-#search_keyword = input("Enter the name of the song you want: ").split()
-#search_keyword = "+".join(search_keyword) + "instrumental"
 
 def storeData():
     global artist_name
     global song_name
     artist_name = entry1.get()
     song_name = entry2.get()
+    # gets user input and combines it into the right format to be used in a URL search
     search_keyword = "+".join(entry1.get().split()) + "+" +"+".join(entry2.get().split()) + "instrumental"
 
     # Opens the Youtube link where the song is being searched based on the user input
@@ -126,7 +123,6 @@ def storeData():
     song = genius.search_song(song_name, artist.name)
     lyrics = (song.lyrics)
     lyrics_start_label = Label(root, text = f'Lyrics for {artist_name} - {song_name}',font =("Helvetica", 10), bg="#A366E6", fg="#FFFFFF")
-    #lyrics_label = Label(root, text=lyrics, font=("Helvetica",14), bg="#A366E6", fg="#FFFFFF")
     lyrics_start_label.pack()
  
 
@@ -141,12 +137,7 @@ def storeData():
 def start_recording():
 
   play()
-
-  # T = Text(root, height = 5, width = 52)  
-
-  # T.insert(END, lyrics)
-  
-
+ 
   # Start Recording of the vocals once video downloading is done
   chunk = 1024  # Record in chunks of 1024 samples
   sample_format = pyaudio.paInt16  # 16 bits per sample
@@ -156,7 +147,8 @@ def start_recording():
   file_name = "output.wav" # recording is saved to a file called "output.wav"
   interface = pyaudio.PyAudio()  # Create an interface to PortAudio
 
-  print('Status: Recording') # Notifies user that it starts recording the audio file
+  # Notifies user that it starts recording the audio file
+  print('Status: Recording') 
 
   stream = interface.open(format=sample_format,
                   channels=channels,
@@ -199,45 +191,25 @@ def start_recording():
   stopButton.pack(pady=20)
   
 
-
-# CREATING THE GUI
-# root = Tk()
-# root.title("Secret Superstar")
-# root.geometry("500x400")
-# root.configure(bg="#A366E6")
-
+# implements pyGame to produce the audio towards the user
 pygame.mixer.init()
 
+# function to play the instrumental
 def play():
     pygame.mixer.music.load("final_sound.wav")
     pygame.mixer.music.play(loops=0)
-
+    
+#function to stop playing music
 def stop():
     pygame.mixer.music.stop()
 
+# function to play the final product of the user's vocals and the instrumenta;
 def play_final():
   pygame.mixer.music.load("combined.wav")
   pygame.mixer.music.play(loops=0)
 
-# appName = Label(root, text="Secret Superstar", font=("helvetica",'20','bold'), bg = "#A366E6", fg='#FFFFFF')
-# # topText = Label(root, text="Please enter the name of the artist: ", bg="#A366E6", fg="#FFFFFF", font=("helvetica",'10','normal'))
-# # entry1 = Entry(root)
-# # secondText = Label(root, text="Please enter the nane of the song you want to sing: ", font=("helvetica",'10','normal'), bg="#A366E6", fg="#FFFFFF")
-# # entry2 = Entry(root)
-# # appName.pack()
-# # topText.pack()
-# # entry1.pack()
-# # secondText.pack()
-# # entry2.pack()
-
 downloadButton = Button(root, text="Get your music!", command=storeData, font=("helvetica",'15','bold'), fg="#FFFFFF", bg="#BC96E6", activeforeground="#BC96E6", activebackground="#FFFFFF",height=1, width=20)
 downloadButton.pack(pady=30)
-
-
-
-#stopButton = Button(root, text="Stop", command=stop, font=("helvetica",'15','bold'),fg="#FFFFFF", bg="#BC96E6")
-#stopButton.pack(pady=20)
-
 
 root.mainloop()
 
